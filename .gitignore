@@ -1,0 +1,111 @@
+# Other ignored patterns...
+
+# Ignore specific large files
+node_modules/.cache/default-development/0.pack
+node_modules/.cache/default-development/1.pack
+node_modules/.cache/default-development/2.pack
+node_modules/.cache/default-development/3.pack
+node_modules/.cache/default-development/5.pack
+node_modules/.cache/default-development/6.pack
+node_modules/.cache/default-development/7.pack
+node_modules/.cache/default-development/8.pack
+node_modules/.cache/default-development/9.pack
+node_modules/.cache/default-development/10.pack
+node_modules/.cache/default-development/11.pack
+node_modules/.cache/default-development/12.pack
+node_modules/.cache/default-development/13.pack
+node_modules/.cache/default-development/14.pack
+node_modules/.cache/default-development/16.pack
+node_modules/.cache/default-development/17.pack
+node_modules/.cache/default-development/18.pack
+node_modules/.cache/default-development/19.pack
+node_modules/.cache/default-development/20.pack
+node_modules/.cache/default-development/21.pack
+node_modules/.cache/default-development/24.pack
+node_modules/.cache/default-development/25.pack
+node_modules/.cache/default-development/26.pack
+node_modules/.cache/default-development/27.pack
+node_modules/.cache/default-development/28.pack
+node_modules/.cache/default-development/29.pack
+node_modules/.cache/default-development/30.pack
+node_modules/.cache/default-development/31.pack
+node_modules/.cache/default-development/32.pack
+
+
+node_modules/.cache/default-development/15.pack
+node_modules/.cache/default-development/26.pack
+node_modules/.cache/default-development/22.pack
+node_modules/.cache/default-development/4.pack
+node_modules/.cache/default-development/23.pack
+
+
+# More ignored patterns...
+# Ignore node_modules directory
+node_modules/
+
+# Ignore dependencies
+package-lock.json
+yarn.lock
+
+# Ignore editor and IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.swp
+*~
+.tmp/
+
+# Ignore build output
+/build/
+/dist/
+/out/
+
+# Ignore environment-specific files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore compiled files and binaries
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# Ignore database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Ignore compiled Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore compiled Java bytecode
+bin/
+target/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore macOS specific files
+.AppleDouble
+.AppleDesktop
+.AppleDB
+.AppleNetwork
+.AppleScript
