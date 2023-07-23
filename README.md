@@ -1,9 +1,3 @@
-# OcamlTodo
-# champs_frontend
-# champs_frontend
-# EWH-app
-# EWH-app
-# champs_frontend1
-# champs_frontend1
-# champs
-# champs
+# Welcome to my portfolio!
+
+Using as https://www.youtube.com/watch?v=hYv6BM2fWd8&list=LL&index=37&t=508s inspiration, I am coding my portfolio website using React. Check it out by running npm start!

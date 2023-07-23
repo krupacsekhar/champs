@@ -1,0 +1,983 @@
+/************ Default Css ************/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 75px;
+}
+
+body {
+  font-weight: 400;
+  overflow-x: hidden;
+  position: relative;
+  background-color: #ededed !important;
+  /* Set the background color on the body */
+  color: #fff !important;
+  /*color of text*/
+  font-family: 'Ubuntu', sans-serif !important;
+  height: 100vh;
+  margin: 0;
+  /* Add this to remove default margin */
+  padding: 0;
+  /* Add this to remove default padding */
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+  line-height: normal;
+  color: #335058
+}
+
+.background-image {
+  position: relative;
+  z-index: -1;
+}
+
+.background-image img {
+  opacity: 1;
+  /* Adjust the opacity value as needed */
+}
+
+
+/************ HomePage Css ************/
+.banner {
+  margin-top: 0;
+  padding: 100px 0 50px 0;
+  background-color: #ededed;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.banner h1 {
+  align-items: center;
+  justify-content: center;
+  font-size: 65px;
+  color: #335058;
+  font-family: 'Roboto';
+  letter-spacing: 6.5px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 45px;
+  line-height: 52px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.banner p {
+  color: #335058;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  line-height: 1.5em;
+  width: 96%;
+}
+
+.button-1 {
+  color: #fff;
+  width: 180px;
+  display: flex !important;
+  justify-content: center !important;
+  align-self: center !important;
+  align-items: center !important;
+  background-color: #FCD116;
+  border-radius: 30px;
+  padding: 15px;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  border: none;
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  letter-spacing: 0.8px;
+
+}
+
+.button-2 {
+  color: #fff;
+  width: 180px;
+  display: flex !important;
+  justify-content: center !important;
+  align-self: center !important;
+  align-items: center !important;
+  background-color: #CE1126;
+  border-radius: 30px;
+  padding: 15px;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  border: none;
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  letter-spacing: 0.8px;
+
+}
+
+.button-3 {
+  color: #fff;
+  width: 180px;
+  display: flex !important;
+  justify-content: center !important;
+  align-self: center !important;
+  align-items: center !important;
+  background-color: black;
+  border-radius: 30px;
+  padding: 15px;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  border: none;
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  letter-spacing: 0.8px;
+
+}
+
+.banner-container {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner button svg {
+  font-size: 25px;
+  margin-left: 10px;
+  transition: 0.3s ease-in-out;
+  line-height: 1;
+}
+
+.banner button:hover svg {
+  margin-left: 25px;
+}
+
+.banner-image {
+  align-items: left;
+  margin-top: 25px;
+}
+
+/************ Navbar Css ************/
+nav.navbar {
+  padding: 18px 0;
+  position: fixed;
+  background-color: #e0e0e0 !important;
+  /*sticky*/
+  width: 100%;
+  top: 0;
+  z-index: 9999;
+  /*stack order-- an object w a high stack order is always 
+  above onw w a low stack order. we always want to being navbar to front, so
+  we use a high z-index*/
+  transition: 0.32s ease-in-out;
+  height: 70px !important;
+  margin-bottom: 100px !important;
+  /*for animations*/
+}
+
+@media (max-width: 768px) {
+  .search-bar-inside-offcanvas {
+    display: block;
+  }
+
+  .search-bar-visible {
+    display: none;
+  }
+}
+
+
+.nav-link {
+  padding-top: 25px !important;
+  padding-left: 10px !important;
+  font-size: 20px !important;
+  color: #335058 !important;
+  font-family: 'Roboto' !important;
+  font-style: normal;
+  font-weight: 600;
+  display: flex;
+  justify-self: center !important;
+  white-space: nowrap;
+  /* Prevents text wrapping */
+}
+
+
+
+.nav-logo {
+  font-size: 45px !important;
+  color: #335058 !important;
+  font-family: 'Roboto' !important;
+  padding-left: 10px;
+  margin-right: 0 !important;
+  letter-spacing: 6.5px;
+  font-style: normal;
+  font-weight: 600;
+  display: flex;
+}
+
+.nav-offcanvas {
+  background-color: #ededed !important;
+  max-width: 275px !important;
+}
+
+.nav-hr {
+  height: 2px !important;
+  padding-left: 20px !important;
+  color: #fff;
+  width: 40%;
+  justify-content: center;
+}
+
+.nav-bar {
+  justify-content: center !important;
+  flex-wrap: nowrap !important;
+}
+
+/************ Datacard Css ************/
+
+.data-card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow-y: scroll !important;
+}
+
+.data-card-container {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  width: 80%;
+  max-height: calc(100vh - 24px);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow-y: scroll !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.data-card-content {
+  color: #000;
+}
+
+.data-carousel-image {
+  max-width: 100%;
+  max-height: 350px;
+  /* Adjust the value to your desired maximum height */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+
+.data-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 22px !important;
+  cursor: pointer;
+  color: #CE1126 !important;
+  font-weight: bolder;
+}
+
+.data-popup-content {
+  color: #000;
+}
+
+.data-card-container .leaflet-container {
+  pointer-events: none !important;
+}
+
+.data-card-container .leaflet-container .leaflet-marker-pane,
+.data-card-container .leaflet-container .leaflet-shadow-pane {
+  display: none !important;
+}
+
+
+/************ Map Css ************/
+
+.map-container {
+  height: 100%;
+  width: 100%;
+}
+
+.fullscreen-map {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  /* Ensure the map is behind the audio player */
+}
+
+
+body.popup-open {
+  margin-top: 10px !important;
+}
+
+.marker-popup .leaflet-popup-content-wrapper.popup-content {
+  top: 100px !important;
+}
+
+.marker-popup-container {
+  position: absolute;
+  top: 90px !important;
+  left: 0;
+  transform: translate(-50%, -100%);
+}
+
+
+.leaflet-control-container .leaflet-top {
+  top: 80px !important;
+}
+
+
+.leaflet-control-container .leaflet-top {
+  top: 30px !important;
+}
+
+
+.popup-content {
+  max-width: 400px;
+  padding: 16px;
+}
+
+.popup-content .leaflet-popup-close-button {
+  font-size: 44px !important;
+  line-height: 1;
+  margin-right: 10px !important;
+  margin-top: 10px !important;
+}
+
+.marker-popup .leaflet-popup-close-button {
+  size: 22px !important;
+  position: absolute;
+}
+
+.carousel-image {
+  max-height: 200px;
+  width: auto;
+}
+
+.carousel .thumbs-wrapper {
+  display: none !important;
+}
+
+.carousel .carousel-slider {
+  margin-bottom: 16px;
+}
+
+.carousel .control-arrow {
+  display: block !important;
+  background: none !important;
+  color: #000 !important;
+  font-size: 24px;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 2 !important;
+}
+
+.carousel .control-arrow:hover {
+  background: none !important;
+  color: #000 !important;
+}
+
+.carousel .control-arrow:before {
+  content: "";
+  position: absolute !important;
+  top: 50% !important;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%) !important;
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel .control-arrow.prev {
+  left: 16px;
+}
+
+.carousel .control-arrow.next {
+  right: 16px;
+}
+
+.carousel .control-dots {
+  display: none !important;
+}
+
+.popup-content .subtitle2 {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.popup-content .body1 {
+  font-size: 16px;
+}
+
+.popup-content .body2 {
+  font-size: 16px;
+  color: #335058;
+  font-weight: 600;
+  text-align: right;
+}
+
+
+
+
+/************ Upload Css ************/
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: #335058;
+}
+
+.input,
+.select {
+  color: black;
+  background-color: white;
+  width: 100%;
+}
+
+.submit-button {
+  align-self: flex-end;
+  background-color: #CE1126 !important;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: none;
+  margin-right: 5px !important;
+}
+
+.remove-button {
+  background-color: #dddddd !important;
+  color: black;
+  padding: 4px 4px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: none;
+}
+
+.file-input {
+  display: none;
+}
+
+.file-label {
+  display: inline-block;
+  background-color: #dddddd;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 40px;
+}
+
+.file-button {
+  display: inline-block;
+  background-color: #dddddd;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 95px;
+  /* Adjust the width as per your preference */
+}
+
+.file-list {
+  margin-top: 5px;
+  color: FCD116;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .submit-button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+/************ Login/Signup Css ************/
+
+.login {
+  background-color: #ededed !important;
+  height: 100vh;
+  padding-top: 60px !important;
+}
+
+.login-container {
+  background-color: #ededed !important;
+  padding: 20px;
+}
+
+.login-heading {
+  color: #335058 !important;
+  padding-bottom: 10px !important;
+}
+
+.login-error {
+  color: red;
+}
+
+.login-button {
+  margin-top: 10px;
+  background-color: #CE1126 !important;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.login-input {
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.signup {
+  background-color: #ededed !important;
+  height: 100vh;
+  padding-top: 100px !important;
+}
+
+/************ Datapoint Css ************/
+
+.data-point {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+}
+
+.data-point-title {
+  font-size: 24px;
+  color: #335058;
+  margin-bottom: 20px;
+}
+
+.data-point-media {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.data-point-address {
+  font-size: 16px;
+  color: #335058;
+  margin-bottom: 20px;
+}
+
+.data-point-description {
+  font-size: 18px;
+  color: #335058;
+  margin-bottom: 20px;
+}
+
+.data-point-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #335058;
+  cursor: pointer;
+}
+
+
+
+/************ Manage Task Css ************/
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* Add a semi-transparent black overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.edit-form {
+  margin-top: 90px !important;
+
+}
+
+.popup-card {
+  background-color: #fff;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  padding: 20px;
+  position: relative;
+  border-radius: 10px;
+}
+
+.data-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 16px;
+  cursor: pointer;
+  color: #888;
+}
+
+
+.close-icon {
+  align-self: flex-end !important;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: #335058 !important;
+  margin-left: 'auto' !important;
+}
+
+
+.manage {
+  background-color: #ededed;
+  color: #335058;
+  padding-top: 75px;
+  text-align: left;
+  height: 100vh !important;
+}
+
+.heading {
+  padding-top: 17px;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+  text-align: left;
+  font-size: 20px !important;
+  font-weight: bold !important;
+}
+
+.subheading {
+  margin-bottom: 16px;
+  padding-bottom: 5px;
+  text-align: left;
+  font-size: 18px !important;
+}
+
+.card {
+  margin-bottom: 16px;
+  padding: 16px;
+}
+
+.table {
+  margin-bottom: 16px;
+}
+
+.table-row:nth-child(even) {
+  background-color: #f5f5f5 !important;
+}
+
+.grey-row {
+  background-color: #f5f5f5 !important;
+}
+
+.table-cell-action {
+  text-align: center !important;
+  /* Align the "Action" column to the right */
+}
+
+
+.manage-task {
+  margin-top: 0;
+  padding: 100px 0 50px 0;
+  background-color: #ededed;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 55;
+  height: 100vh;
+}
+
+.manage-h1 {
+  font-size: 22px !important;
+  font-weight: 450;
+  color: #335058 !important;
+  font-family: 'Roboto' !important;
+}
+
+.manage-h2 {
+  font-size: 20px !important;
+  color: #335058 !important;
+  font-family: 'Roboto' !important;
+}
+
+/************ search page *********/
+
+.search-page {
+  margin-top: 40px !important;
+  background-color: #ededed;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 55 !important;
+  height: 100vh !important;
+}
+
+.search-container {
+  margin-top: 40px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  padding: 2rem !important;
+}
+
+.search-heading {
+  color: #335058 !important;
+  font-size: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  margin-top: 5px !important;
+}
+
+/* SearchPage.css */
+
+/* Style the button container to have a column layout */
+.search-button-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+/* Style the buttons to have a flexible width */
+.search-button {
+  width: 100% !important;
+  /* Make the buttons expand to the full width of the container */
+  max-width: 350px !important;
+  margin-bottom: 10px !important;
+  background: linear-gradient(#ccc, #f5f5f5) !important;
+  border: none !important;
+  border-radius: 13px !important;
+  /* Updated value for rounder buttons */
+  font-size: 1rem !important;
+  font-weight: 200 !important;
+  text-transform: none !important;
+  color: #335058 !important;
+  cursor: pointer !important;
+  outline: 1px solid #ce1126 !important;
+}
+
+
+@media (max-width: 369px) {
+  .search-button {
+    width: calc(100% - 20px) !important;
+  }
+}
+
+
+
+
+/******DPD Page********/
+.dpd {
+  background-color: #ededed !important;
+  color: #335058;
+  padding-top: 75px;
+  text-align: left;
+  height: 100vh !important;
+  min-height: '100vh' !important;
+}
+
+.dpd-card {
+  max-width: 500 !important;
+  margin: '16px auto' !important;
+  background-color: white !important;
+
+}
+
+.dpd h1 {
+  align-self: center !important;
+  align-items: center !important;
+  align-content: center !important;
+  color: #335058;
+  font-size: 27;
+
+}
+
+.category-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* or any desired height */
+}
+
+
+/************extras*********/
+.upload {
+  margin-top: 0;
+  padding: 100px 0 50px 0;
+  background-color: #ededed;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-bottom: 55;
+}
+
+.upload-title {
+  font-size: 18px !important;
+  color: #335058 !important;
+  font-family: 'Roboto' !important;
+  padding-top: 15px;
+  padding-bottom: 0;
+}
+
+.upload-options {
+  font-size: 16px !important;
+  color: #335058 !important;
+  font-family: 'Roboto' !important;
+}
+
+.upload-form {
+  justify-self: center !important;
+  justify-content: center !important;
+}
+
+.upload-next {
+  color: #fff;
+  display: flex !important;
+  justify-content: center !important;
+  align-self: left;
+  background-color: #335058;
+  border-radius: 25px;
+  padding: 30px;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  border: none;
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  letter-spacing: 0.8px;
+
+}
+
+.upload-file {
+  color: #fff;
+  display: flex !important;
+  justify-content: center !important;
+  align-self: left;
+  background-color: #ededed;
+  border-color: #335058 !important;
+  border-radius: 25px !important;
+  padding: 30px;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  border: none;
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  letter-spacing: 0.8px;
+
+}
+
+/***/
+/************ DataCard CSS ************/
+
+.data-card-overlay-unique {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow-y: scroll !important;
+}
+
+.data-card-container-unique {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  overflow-y: scroll !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.data-card-content-unique {
+  color: #000;
+}
+
+.data-carousel-image-unique {
+  max-width: 100%;
+  max-height: 350px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.data-close-button-unique {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 16px;
+  cursor: pointer;
+  color: #888;
+}
+
+.data-popup-content-unique {
+  color: #000;
+}
+
+.data-card-container-unique .leaflet-container {
+  pointer-events: none !important;
+}
+
+.data-card-container-unique .leaflet-container .leaflet-marker-pane,
+.data-card-container-unique .leaflet-container .leaflet-shadow-pane {
+  display: none !important;
+}
