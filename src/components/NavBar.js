@@ -51,7 +51,7 @@ function NavBar({ user }) {
           <Offcanvas.Body>
             <Nav className="justify-content-center flex-wrap-nowrap">
               <Navbar.Brand href="/home" className="nav-logo" onClick={handleLogout}>
-                <img src={Champs_logo} alt="Champs Logo" />
+                <img src={Champs_logo} className="champs_logo" alt="Champs Logo" />
               </Navbar.Brand>
               <hr className="nav-hr" />
               {searchBarOffcanvas}
