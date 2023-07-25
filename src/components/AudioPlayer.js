@@ -37,7 +37,7 @@ const AudioPlayer = ({ audioUrl }) => {
         display: 'flex',
         alignItems: 'center',
         marginLeft: 'auto',
-        width: '400px',
+        width: '200px',
       }}
     >
       <audio

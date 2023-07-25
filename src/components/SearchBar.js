@@ -107,6 +107,7 @@ const SearchBar = () => {
           boxShadow={1}
           overflow="auto"
           p={2}
+          marginTop="55px"
         >
           <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
             <Typography

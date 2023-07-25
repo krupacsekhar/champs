@@ -67,9 +67,7 @@ function NavBar({ user }) {
                   <Nav.Link href="/home" className="nav-link" onClick={handleLogout}>
                     Log In
                   </Nav.Link>
-                  <div style={{ marginTop: '20px', marginLeft: '25px' }}>
-                    <AudioPlayer audioUrl={sarawak_anthem} />
-                  </div>
+
                 </>
               ) :
                 user === 'HeritageExpert' || user === 'User' ? (
@@ -119,6 +117,10 @@ function NavBar({ user }) {
           </Offcanvas.Body>
         </Navbar.Offcanvas>
         <Nav>
+          {user === '' ? (
+            <div style={{ marginTop: '20px', marginLeft: '0px' }}>
+              <AudioPlayer audioUrl={sarawak_anthem} />
+            </div>) : (<div></div>)}
           {searchBarReg}
         </Nav>
       </Container>
