@@ -7,7 +7,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import DataCard from '../components/DataCard';
 import AudioPlayer from '../components/AudioPlayer';
-import sarawak_anthem from '../assets/sarawak_anthem.m4a'
+import sarawak_anthem from '../assets/sarawak_anthem.mp3'
 
 
 const customIcon = L.icon({

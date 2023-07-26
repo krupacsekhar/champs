@@ -86,7 +86,7 @@ const SearchBar = () => {
         onClick={handleSearch}
         sx={{
           bgcolor: '#FCD116',
-          color: '#ffffff',
+          color: 'black',
           '&:hover': {
             bgcolor: '#DEB504', // Specify the hover background color
           },

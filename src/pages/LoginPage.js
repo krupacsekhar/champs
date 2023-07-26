@@ -45,7 +45,7 @@ const LoginPage = () => {
         <Typography variant="h5" className='login-heading'>Login</Typography>
         <form onSubmit={handleLogin}>
           <TextField
-            label="Username"
+            label="Email"
             variant="outlined"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -75,7 +75,7 @@ const LoginPage = () => {
 
         <Typography variant="body1" sx={{ color: 'grey', marginTop: '10px' }}>
           New User?{' '}
-          <Link component={RouterLink} to="/signup" sx={{ color: 'grey', '&:hover': { color: '#335058' } }}>
+          <Link component={RouterLink} to="/signup-user" sx={{ color: 'grey', '&:hover': { color: '#335058' } }}>
             Sign up
           </Link>
         </Typography>
@@ -87,7 +87,7 @@ const LoginPage = () => {
           </Link>
         </Typography>
       </Container>
-      <Container className="align-items-center" style={{ textAlign: 'center' }}>
+      <Container className="align-items-center" style={{ textAlign: 'center', marginBottom: '0px' }}>
         <img src={champs_home} style={{ width: '100%', maxWidth: '500px' }} alt="Champs Home" />
       </Container>
     </div>

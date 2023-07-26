@@ -107,7 +107,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/search-page" element={<SearchPage />} />
           <Route path="/datapointdetails/:category" element={<DataPointDetailsPage />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/log-in" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup-user" element={<SignupUser />} />
           <Route path="/signup-admin" element={<SignupAdmin />} />

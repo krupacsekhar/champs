@@ -174,7 +174,7 @@ h6 {
 
 /************ Navbar Css ************/
 nav.navbar {
-  padding: 18px 0;
+  padding: 0px 0;
   position: fixed;
   background-color: #e0e0e0 !important;
   /*sticky*/
@@ -467,6 +467,25 @@ body.popup-open {
   flex-direction: column;
   gap: 8px;
 }
+
+.info-container {
+  display: flex;
+  align-items: center;
+}
+
+/* In your CSS file or style block */
+.label-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info-icon {
+  margin-left: 8px;
+  /* Add some spacing between label and InfoIcon */
+}
+
+
 
 .label {
   color: #335058;
@@ -764,11 +783,12 @@ body.popup-open {
 }
 
 .search-container {
-  margin-top: 40px;
+  margin-top: 100px;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   padding: 2rem !important;
+  align-content: center !important;
 }
 
 .search-heading {
@@ -778,13 +798,17 @@ body.popup-open {
   margin-top: 5px !important;
 }
 
-/* SearchPage.css */
-
 /* Style the button container to have a column layout */
 .search-button-group {
   display: flex !important;
   flex-direction: column !important;
   gap: 10px !important;
+}
+
+/* Adjust the margin as needed to control the spacing between the button and the info icon */
+.button-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 /* Style the buttons to have a flexible width */
@@ -804,6 +828,14 @@ body.popup-open {
   cursor: pointer !important;
   outline: 1px solid #ce1126 !important;
 }
+
+/* Adjust the margin as needed to control the spacing between the button and the info icon */
+.info-icon {
+  margin-left: 10px;
+
+}
+
+/* Grey color for the info icon */
 
 
 @media (max-width: 369px) {

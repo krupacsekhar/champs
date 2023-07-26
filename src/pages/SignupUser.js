@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Container, Typography, TextField, Button, Alert, Link } from '@mui/material';
+import { Container, Typography, TextField, Button, Alert, Link, Tooltip } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import InfoIcon from '@mui/icons-material/Info';
 
 const SignupUser = () => {
   const [username, setUsername] = useState('');
@@ -60,15 +61,24 @@ const SignupUser = () => {
           sx={{ marginBottom: '10px' }}
           InputLabelProps={{ sx: { color: 'grey' } }}
         />
-        <TextField
-          label="Phone Number (eg. 0141234567)"
-          variant="outlined"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          fullWidth
-          sx={{ marginBottom: '10px' }}
-          InputLabelProps={{ sx: { color: 'grey' } }}
-        />
+        <Tooltip>
+          <TextField
+            label="Phone Number (eg. 0141234567)"
+            variant="outlined"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            fullWidth
+            sx={{ marginBottom: '10px' }}
+            InputLabelProps={{ sx: { color: 'grey' } }}
+            InputProps={{
+              endAdornment: (
+                <Tooltip title="Please enter your phone number with no area code. Only Malaysia numbers are accepted.">
+                  <InfoIcon color="disabled" />
+                </Tooltip>
+              ),
+            }}
+          />
+        </Tooltip>
         <TextField
           label="Password (at least 6 characters long)"
           variant="outlined"

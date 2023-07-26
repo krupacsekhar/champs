@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
-import { Box, IconButton, Slider } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
+import { Box, IconButton, Slider, Tooltip } from '@mui/material';
+
 
 const AudioPlayer = ({ audioUrl }) => {
   const audioRef = useRef(null);
@@ -32,35 +33,59 @@ const AudioPlayer = ({ audioUrl }) => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        marginLeft: 'auto',
-        width: '200px',
-      }}
-    >
+    <div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginLeft: 'auto',
+          width: '300px', // Increased the width for better spacing
+        }}
+      >
+        <IconButton
+          onClick={handlePlayPause}
+          sx={{ color: '#335058', padding: '10px' }}
+        >
+          {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+        </IconButton>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Box
+            sx={{
+              color: '#335058',
+              fontSize: '14px',
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%', // Make the box full width
+            }}
+          >
+            Sarawak Anthem {/* This is the label for the Slider */}
+          </Box>
+          <Slider
+            min={0}
+            max={duration}
+            value={currentTime}
+            onChange={handleProgressChange}
+            sx={{ color: '#335058', width: '80%', marginLeft: '10px' }}
+            components={{
+              ValueLabel: () => null, // Hide the default time label
+            }}
+          />
+
+        </div>
+
+
+
+
+      </div>
       <audio
         ref={audioRef}
         src={audioUrl}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
       />
-      <IconButton
-        onClick={handlePlayPause}
-        sx={{ color: '#335058', padding: '6px' }}
-      >
-        {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
-      </IconButton>
-      <Slider
-        min={0}
-        max={duration}
-        value={currentTime}
-        onChange={handleProgressChange}
-        sx={{ color: '#335058', width: '80%' }}
-        marginLeft="10px"
-      />
     </div>
   );
 };
+
 export default AudioPlayer;
