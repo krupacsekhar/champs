@@ -15,17 +15,26 @@ const SignupExpert = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const token = localStorage.getItem('token');
 
+  const ethnicGroupIdMapping = {
+    Malay: 1,
+    Chinese: 2,
+    Iban: 3,
+    Bidayuh: 4,
+    Indian: 5,
+  };
+
 
   const handleSignUp = async () => {
     try {
       const response = await axios.post(
-        'https://champswebapi.azurewebsites.net/api/Authentication/HeritageExpert',
+        'https://champswebapi.azurewebsites.net/api/HeritageExpert',
         {
           fullName,
           email,
           phoneNumber,
           password,
-          confirmPassword
+          confirmPassword,
+          ethnicGroupId: ethnicGroupIdMapping[ethnicGroup], // Use the result of ethnicGroupIdMapping[ethnicGroup]
         },
         {
           headers: {
@@ -44,6 +53,7 @@ const SignupExpert = () => {
       setErrorMessage('Error signing up.');
     }
   };
+
 
   const ethnicGroupOptions = ['Bidayuh', 'Chinese', 'Iban', 'Indian', 'Malay'];
 

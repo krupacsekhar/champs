@@ -17,7 +17,7 @@ const SignupAdmin = () => {
   const handleSignUp = async () => {
     try {
       const response = await axios.post(
-        'https://champswebapi.azurewebsites.net/api/Authentication/Admin',
+        'https://champswebapi.azurewebsites.net/api/Admin',
         {
           fullName,
           email,

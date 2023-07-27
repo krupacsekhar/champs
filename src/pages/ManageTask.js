@@ -48,7 +48,9 @@ const ManageTask = () => {
   };
 
   const [userRole, setUserRole] = useState('')
-  const [userId, setUserId] = useState(-1)
+  const [user, setUser] = useState('')
+
+  const [userId, setUserId] = useState(null); // Initialize with null
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,6 +60,7 @@ const ManageTask = () => {
 
         if (!token) {
           setUserRole(''); // No token, set userRole to an empty string
+          console.log('no token');
           return;
         }
 
@@ -67,10 +70,14 @@ const ManageTask = () => {
           },
         });
 
+        const { id } = response.data;
         const { userRole } = response.data;
+
         setUserRole(userRole);
-        const id = response.data;
+
         setUserId(id);
+
+        console.log({ userId });
       } catch (error) {
         setUserRole('err');
         console.error('Error:', error);
@@ -81,6 +88,9 @@ const ManageTask = () => {
       console.error('Error:', error);
     });
   }, []);
+
+
+
 
   useEffect(() => {
     // Fetch published and pending datapoints from the API

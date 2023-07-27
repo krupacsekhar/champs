@@ -79,7 +79,7 @@ const DataCard = ({ location }) => {
     }
   };
 
-  const [userRole, setUserRole] = useState('')
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,11 +111,46 @@ const DataCard = ({ location }) => {
     });
   }, []);
 
+  const fetchUserName = async (id) => {
+    try {
+      // Check if the bearer token is present in local storage
+      const token = localStorage.getItem('token');
+
+      const response = await axios.get(`https://champswebapi.azurewebsites.net/api/UserDetail/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const { fullName } = response.data;
+      return fullName;
+    } catch (error) {
+      setUserRole('err');
+      console.error('Error:', error);
+      return '';
+    }
+  };
+
   const bookOrNo = userRole === "" ? (<div></div>) : (<BookmarkIcon
     isBookmarked={isFavorite}
     onClick={toggleBookmark}
   />)
 
+  const [fullName, setFullName] = useState('');
+
+  // Use useEffect to fetch the fullName once the component mounts
+  useEffect(() => {
+    const fetchFullName = async () => {
+      try {
+        const name = await fetchUserName(location.createdByUserDetailId);
+        setFullName(name);
+      } catch (error) {
+        setFullName('err');
+      }
+    };
+
+    fetchFullName();
+  }, [location.createdByUserDetailId]);
 
   return (
     <Box className="data-popup-content">
@@ -165,6 +200,25 @@ const DataCard = ({ location }) => {
         ))}
       </Carousel>
       <Typography variant="subtitle2" gutterBottom sx={{ marginTop: '8px', fontSize: '18px', marginBottom: '0px' }}>
+        Date Created
+      </Typography>
+      <Typography variant="body2" sx={{ margin: '0px !important', padding: '0px !important' }} gutterBottom>
+        {location.dateCreated.split('T')[0]}
+      </Typography>
+      <Typography variant="subtitle2" gutterBottom sx={{ marginTop: '8px', fontSize: '18px', marginBottom: '0px' }}>
+        Creator:
+      </Typography>
+      {/* Conditionally render the Typography component based on fullName */}
+      {fullName ? (
+        <Typography variant="body2" sx={{ margin: '0px !important', padding: '0px !important' }} gutterBottom>
+          {fullName}
+        </Typography>
+      ) : (
+        <Typography variant="body2" sx={{ margin: '0px !important', padding: '0px !important' }} gutterBottom>
+          Loading...
+        </Typography>
+      )}
+      <Typography variant="subtitle2" gutterBottom sx={{ marginTop: '8px', fontSize: '18px', marginBottom: '0px' }}>
         Address
       </Typography>
       <Typography variant="body2" sx={{ margin: '0px !important', padding: '0px !important' }} gutterBottom>
@@ -176,6 +230,7 @@ const DataCard = ({ location }) => {
       <Typography variant="body2" sx={{ margin: '0px !important', padding: '0px !important' }} gutterBottom>
         {location.content}
       </Typography>
+      {/*
       <Typography variant="subtitle2" gutterBottom sx={{ marginTop: '8px', fontSize: '18px', marginBottom: '0px' }}>
         About
       </Typography>
@@ -187,7 +242,7 @@ const DataCard = ({ location }) => {
       </Typography>
       <Typography variant="body2" sx={{ margin: '0px !important', padding: '0px !important' }} gutterBottom>
         {location.others}
-      </Typography>
+      </Typography>*/}
     </Box>
   );
 };
