@@ -107,7 +107,7 @@ function NavBar({ user }) {
                     Map
                   </Nav.Link>
                   <Nav.Link href="/search-page" className="nav-link">
-                    Search
+                    Browse
                   </Nav.Link>
                   <Nav.Link href="/log-in" className="nav-link" onClick={handleLogout}>
                     Log In
@@ -124,7 +124,7 @@ function NavBar({ user }) {
                       Upload
                     </Nav.Link>
                     <Nav.Link href="/search-page" className="nav-link">
-                      Search
+                      Browse
                     </Nav.Link>
                     <Nav.Link href="/favorites" className="nav-link">
                       Favorites
@@ -148,7 +148,7 @@ function NavBar({ user }) {
                       Map
                     </Nav.Link>
                     <Nav.Link href="/search-page" className="nav-link">
-                      Search
+                      Browse
                     </Nav.Link>
                     <Nav.Link href="/favorites" className="nav-link">
                       Favorites

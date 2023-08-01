@@ -154,11 +154,20 @@ const DataCard = ({ location }) => {
 
   return (
     <Box className="data-popup-content">
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '16px',
+        }}
+      >
         <Typography variant="h6" component="h3" gutterBottom>
           {location.title}
         </Typography>
-        {bookOrNo}
+        {/* We wrap the BookmarkIcon with a div to apply custom styling */}
+        <div style={{ marginLeft: '10px', fontSize: '28px', cursor: 'pointer' }}>
+          {bookOrNo}
+        </div>
       </div>
       <Carousel
         showStatus={false}

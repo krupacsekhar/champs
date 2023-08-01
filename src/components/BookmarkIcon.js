@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
-import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const BookmarkIcon = ({ isBookmarked, onClick }) => {
   return (
@@ -10,9 +10,9 @@ const BookmarkIcon = ({ isBookmarked, onClick }) => {
       style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
     >
       {isBookmarked ? (
-        <BookmarkOutlinedIcon fontSize="small" style={{ fill: '#335058' }} />
+        <FavoriteIcon fontSize="small" style={{ fill: '#FF0000' }} />
       ) : (
-        <BookmarkBorderOutlinedIcon fontSize="small" style={{ stroke: '#335058' }} />
+        <FavoriteBorderOutlinedIcon fontSize="small" style={{ stroke: '#FF0000' }} />
       )}
     </div>
   );

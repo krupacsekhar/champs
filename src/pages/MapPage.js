@@ -6,15 +6,81 @@ import { Typography, Box } from '@mui/material';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import DataCard from '../components/DataCard';
-import AudioPlayer from '../components/AudioPlayer';
-import sarawak_anthem from '../assets/sarawak_anthem.mp3'
+import { Place } from '@mui/icons-material';
+import ReactDOMServer from 'react-dom/server';
+import { FormControlLabel, Checkbox } from '@mui/material';
 
 
-const customIcon = L.icon({
-  iconUrl: require('../assets/img/LocationPin.svg').default,
-  iconSize: [32, 32],
-  iconAnchor: [16, 32],
-});
+
+const culturalHeritageCategoryIdMapping = {
+  'Heritage Sites': 1,
+  Monuments: 2,
+  Buildings: 3,
+  'Street Art': 6,
+  'Fine Art/Crafts': 7,
+  'Food/Gastronomy': 8,
+  Music: 9,
+  Dance: 10,
+  Rituals: 11,
+  'Oral Traditions/Stories': 13,
+  'Cultural Festivals/Events': 14,
+  'Traditional Knowledge': 15,
+};
+
+const idToCulturalHeritageCategoryMapping = {
+  // Mapping of culturalHeritageCategoryId to category names
+  1: 'Heritage Sites',
+  2: 'Monuments',
+  3: 'Buildings',
+  6: 'Street Art',
+  7: 'Fine Art/Crafts',
+  8: 'Food/Gastronomy',
+  9: 'Music',
+  10: 'Dance',
+  11: 'Rituals',
+  13: 'Oral Traditions/Stories',
+  14: 'Cultural Festivals/Events',
+  15: 'Traditional Knowledge',
+};
+
+const customIcon = {
+  // Define different colors for each category name
+  'Heritage Sites': 'red',
+  Monuments: '#E9AB17',
+  Buildings: 'green',
+  'Street Art': 'orange',
+  'Fine Art/Crafts': 'blue',
+  'Food/Gastronomy': 'purple',
+  Music: '#D891EF',
+  Dance: '#6960EC',
+  Rituals: 'indigo',
+  'Oral Traditions/Stories': 'magenta',
+  'Cultural Festivals/Events': 'olive',
+  'Traditional Knowledge': 'DarkBlue',
+};
+
+const getCustomIcon = (categoryName) => {
+  // Define the icon styles
+  const iconStyles = {
+    fontSize: 32,
+    color: customIcon[categoryName] || '#000000', // Default color if the category is not in customIcon
+  };
+
+  // Render the Place icon as an SVG and convert it to a string
+  const iconSvgString = ReactDOMServer.renderToString(
+    <Place style={iconStyles} />
+  );
+
+  // Return the Leaflet divIcon with the SVG string
+  return L.divIcon({
+    className: 'custom-icon',
+    html: iconSvgString,
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+  });
+};
+
+
 
 const validImageFormats = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".svg"];
 
@@ -28,10 +94,20 @@ const CreateDataPoint = ({ location, onReadMoreClick }) => {
 
 
   return (
-    <Box className="popup-content">
-      <Typography variant="h6" component="h3" gutterBottom>
-        {location.title}
-      </Typography>
+    <Box className="data-popup-content">
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '16px',
+        }}
+      >
+        <Typography variant="h6" component="h3" gutterBottom>
+          {location.title}
+        </Typography>
+        {/* We wrap the BookmarkIcon with a div to apply custom styling */}
+
+      </div>
       <Carousel
         showStatus={false}
         showThumbs={false}
@@ -66,11 +142,12 @@ const CreateDataPoint = ({ location, onReadMoreClick }) => {
             <img
               src={imageUrl}
               alt={`Image ${index + 1}`}
-              className="carousel-image"
+              className="data-carousel-image"
             />
           </div>
         ))}
       </Carousel>
+
       <Typography variant="subtitle2" gutterBottom sx={{ marginTop: '8px', fontSize: '18px', marginBottom: '0px' }}>
         Address
       </Typography>
@@ -83,7 +160,7 @@ const CreateDataPoint = ({ location, onReadMoreClick }) => {
       <Typography variant="body2" sx={{ margin: '0px !important', padding: '0px !important' }} gutterBottom>
         {location.description}
       </Typography>
-      <Typography variant="body2" gutterBottom align="right" color="#335058" fontWeight="600" onClick={() => onReadMoreClick(location)}>
+      <Typography variant="body2" cursor="pointer" gutterBottom align="right" color="#335058" fontWeight="600" onClick={() => onReadMoreClick(location)}>
         Read more
       </Typography>
     </Box>
@@ -96,10 +173,20 @@ const isValidLatLng = (lat, lng) => {
 
 const MapPage = () => {
   const [pinLocations, setPinLocations] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(Object.keys(culturalHeritageCategoryIdMapping));
   const [isDataCardOpen, setIsDataCardOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [mapInstance, setMapInstance] = useState(null);
+  const [selectedTab, setSelectedTab] = useState('Filter');
+  const [selectedMarkerLocation, setSelectedMarkerLocation] = useState(null);
+
+
+  const handleMarkerClick = (location) => {
+    setSelectedTab('Data Point');
+    setSelectedMarkerLocation(location);
+  };
   const mapRef = useRef(null);
+
 
   useEffect(() => {
     fetch('https://champswebapi.azurewebsites.net/api/Entry')
@@ -111,6 +198,10 @@ const MapPage = () => {
           return lastEntryStatus?.name === 'Approved';
         });
         setPinLocations(approvedEntries);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        // You can handle the error here, e.g., show a message to the user
       });
   }, []);
 
@@ -163,7 +254,7 @@ const MapPage = () => {
     if (lat && lng && zoom) {
       return [lat, lng];
     } else {
-      return [1.5574, 110.3591]; // Default initial center
+      return [1.5574, 110.3]; // Default initial center
     }
   };
 
@@ -179,9 +270,29 @@ const MapPage = () => {
   };
 
 
+  const circumference = 15000; // Adjust this value as needed
+
+  // Calculate the bounding box
+  const centerCoords = L.latLng(1.5574, 110.3);
+  const bounds = centerCoords.toBounds(circumference);
+
+  const handleFilterChange = (event) => {
+    const { name, checked } = event.target;
+    if (checked) {
+      setSelectedCategories((prevCategories) => [...prevCategories, name]);
+    } else {
+      setSelectedCategories((prevCategories) =>
+        prevCategories.filter((category) => category !== name)
+      );
+    }
+  };
+
+  const minZoomLevel = 9.3; // Adjust this value as needed
+  const maxZoomLevel = 15; // Adjust this value as needed
+
 
   return (
-    <div style={{ position: 'relative', marginTop: '30px' }}>
+    <div style={{ position: 'relative', marginTop: '30px', height: '100vh' }}>
       <MapContainer
         center={initialMapCenter()}
         zoom={initialMapZoom()}
@@ -189,42 +300,87 @@ const MapPage = () => {
         whenCreated={handleMapCreated}
         ref={mapRef}
         onMoveEnd={handleMoveEnd}
+        maxBounds={bounds}
+        maxBoundsViscosity={0.5} // Adjust this value to control the stickiness to the bounds
+        minZoom={minZoomLevel}
 
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
         {pinLocations.map((location) => {
-          // Check if the location has valid latitude and longitude values
-          if (!isValidLatLng(location.latitude, location.longitude)) {
-            return null; // Skip rendering invalid markers
+          // Check if the location's category is included in selectedCategories
+          if (!selectedCategories.includes(idToCulturalHeritageCategoryMapping[location.culturalHeritageCategoryId])) {
+            return null; // Skip rendering markers for unselected categories
+          }
+
+          if (location.latitude === null || location.longitude === null) {
+            return null;
           }
 
           return (
             <div className='marker-popup-container' key={location.id}>
-              <Marker position={[location.latitude, location.longitude]} icon={customIcon}>
-                <Popup className="marker-popup">
-                  <CreateDataPoint location={location} onReadMoreClick={handleReadMoreClick} />
-                </Popup>
-              </Marker>
+              <Marker
+                position={[location.latitude, location.longitude]}
+                icon={getCustomIcon(idToCulturalHeritageCategoryMapping[location.culturalHeritageCategoryId])}
+                eventHandlers={{
+                  click: () => handleMarkerClick(location),
+                }}
+              />
             </div>
           );
         })}
-
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            width: '100%',
-            backgroundColor: 'grey',
-            borderRadius: '50px',
-            padding: '10px',
-            boxShadow: '0 0 5px rgba(0, 0, 0, 0.3)',
-            zIndex: 2, // Ensure the audio player appears above the map
-          }}
-        >
-          <AudioPlayer audioUrl={sarawak_anthem} />
-        </div>
       </MapContainer>
+
+      <div
+        className="filter-panel"
+        style={{
+          position: 'absolute',
+          bottom: 20,
+          margin: '10px !important',
+          marginBottom: '10px !important',
+          backgroundColor: 'white',
+          padding: '10px',
+          borderRadius: '5px',
+          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
+          zIndex: 1000,
+          width: '100%',
+          maxHeight: '33%',
+          // Add the following styles to make the content scrollable within the div
+          overflow: 'auto',
+        }}
+      >
+        {/* Typography Headings (Filter and Data Point) */}
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ flexGrow: 0.01 }}>
+            <Typography variant="h6" style={{ cursor: 'pointer', color: selectedTab === 'Filter' ? 'black' : 'gray' }} onClick={() => setSelectedTab('Filter')}>Filter</Typography>
+          </div>
+          <div style={{ flexGrow: 0.01 }}>
+            <Typography variant="h6" style={{ cursor: 'pointer', color: selectedTab === 'Data Point' ? 'black' : 'gray' }} onClick={() => setSelectedTab('Data Point')}>Data Point</Typography>
+          </div>
+        </div>
+
+
+        {selectedTab === 'Filter' && (
+          <div>
+            {Object.keys(culturalHeritageCategoryIdMapping).map((categoryName) => (
+              <FormControlLabel
+                key={categoryName}
+                control={<Checkbox checked={selectedCategories.includes(categoryName)} onChange={handleFilterChange} name={categoryName} />}
+                label={categoryName}
+                style={{ color: customIcon[categoryName] }}
+              />
+            ))}
+          </div>
+        )}
+
+        {selectedTab === 'Data Point' && (
+          <div>
+            {selectedMarkerLocation ? (
+              <CreateDataPoint location={selectedMarkerLocation} onReadMoreClick={handleReadMoreClick} />
+            ) : (<div style={{ color: 'black' }}>Please select a datapoint from the map!</div>)}
+          </div>
+        )}
+      </div>
 
       {isDataCardOpen && selectedLocation && (
         <div
@@ -239,9 +395,11 @@ const MapPage = () => {
           </div>
         </div>
       )}
-
     </div>
+
+
   );
+
 };
 
 export default MapPage;
