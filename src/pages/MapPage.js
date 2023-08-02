@@ -387,7 +387,7 @@ const MapPage = () => {
 
 
   return (
-    <div style={{ position: 'relative', marginTop: '50px', height: '100vh' }}>
+    <div style={{ position: 'relative', marginTop: '70px', height: '100vh' }}>
       <MapContainer
         center={initialMapCenter()}
         zoom={initialMapZoom()}
@@ -516,7 +516,7 @@ const MapPage = () => {
         {isDataCardOpen && selectedLocation && (
           <div
             className="popup-overlay"
-            style={{ backgroundColor: '#ededed', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}
+            style={{ backgroundColor: '#ededed', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', marginTop: '32px' }}
           >
             <div className="popup-card">
               <button className="data-close-button" onClick={handleDataCardClose}>
