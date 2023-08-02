@@ -387,7 +387,7 @@ const MapPage = () => {
 
 
   return (
-    <div style={{ position: 'relative', marginTop: '85px', height: '100vh' }}>
+    <div style={{ position: 'relative', marginTop: '50px', height: '100vh' }}>
       <MapContainer
         center={initialMapCenter()}
         zoom={initialMapZoom()}
