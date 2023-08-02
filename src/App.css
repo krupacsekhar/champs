@@ -332,6 +332,79 @@ nav.navbar {
   width: 100%;
 }
 
+.filter-panel-bottom {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Add other styling properties as needed */
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  /* Change the z-index to a value higher than the map */
+  width: 100%;
+  max-height: 33% !important;
+  /* Increase this value to show more content */
+  overflow: auto;
+}
+
+/* Styles for the filter-panel-left class (for desktop) */
+.filter-panel-left {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  /* Add other styling properties as needed */
+  margin-top: 65px !important;
+  background-color: white !important;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000 !important;
+  max-width: 25%;
+  min-width: 19%;
+  height: 85vh;
+  /* Use 100vh to take up the entire screen height */
+  overflow: auto;
+
+}
+
+.filter-panel-left .minimized {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  /* Add other styling properties as needed */
+  margin-top: 65px !important;
+  background-color: white !important;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000 !important;
+  width: 5% !important;
+  height: 85vh;
+  /* Use 100vh to take up the entire screen height */
+  overflow: auto;
+}
+
+
+
+
+
+/* CSS for the filter panel at the left */
+
+
+.filter-panel-line {
+  height: 2px;
+  background-color: #ccc;
+  border: none;
+  margin: 8px 0;
+  /* Add some margin for spacing */
+}
+
+
+
+
 .fullscreen-map {
   position: fixed;
   top: 0;

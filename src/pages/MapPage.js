@@ -2,13 +2,15 @@ import React, { useEffect, useState, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, FormControl, Select, MenuItem } from '@mui/material';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import DataCard from '../components/DataCard';
-import { Place } from '@mui/icons-material';
+import { Place, CloseFullscreen, OpenInFull, ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
 import ReactDOMServer from 'react-dom/server';
 import { FormControlLabel, Checkbox } from '@mui/material';
+import Divider from '@mui/material/Divider';
+
 
 
 
@@ -179,6 +181,43 @@ const MapPage = () => {
   const [mapInstance, setMapInstance] = useState(null);
   const [selectedTab, setSelectedTab] = useState('Filter');
   const [selectedMarkerLocation, setSelectedMarkerLocation] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isFilterPanelExpanded, setIsFilterPanelExpanded] = useState(true);
+  const [isFilterPanelMinimized, setIsFilterPanelMinimized] = useState(false);
+  const [culturalHeritageType, setCulturalHeritageType] = useState('');
+  const [culturalHeritageCategory, setCulturalHeritageCategory] = useState('');
+
+
+  const handleFilterPanelToggle = () => {
+    if (isFilterPanelMinimized) {
+      // If the panel is minimized, toggle to expand
+      setIsFilterPanelMinimized(false);
+    } else {
+      // Otherwise, toggle between expanded and closed
+      setIsFilterPanelExpanded((prevState) => !prevState);
+      if (!isFilterPanelExpanded) {
+        // If the panel is being expanded, set isFilterPanelMinimized to false
+        setIsFilterPanelMinimized(false);
+      }
+    }
+  };
+
+  const handleFilterPanelMinimize = () => {
+    setIsFilterPanelMinimized((prevState) => !prevState); // Toggle the isFilterPanelMinimized state
+  };
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
 
   const handleMarkerClick = (location) => {
@@ -287,12 +326,68 @@ const MapPage = () => {
     }
   };
 
+
+  const [tangibleDropdownOpen, setTangibleDropdownOpen] = useState(false);
+  const [intangibleDropdownOpen, setIntangibleDropdownOpen] = useState(false);
+
+  // Step 2: Add event handlers to toggle checkbox visibility
+  const handleTangibleDropdownToggle = () => {
+    setTangibleDropdownOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleIntangibleDropdownToggle = () => {
+    setIntangibleDropdownOpen((prevOpen) => !prevOpen);
+  };
+
+  // Step 3: Create a function to render the checkboxes for Tangible category
+  const renderTangibleCheckboxes = () => {
+    return tangibleDropdownOpen ? (
+      <div>
+        {['Fine Art/Crafts', 'Street Art', 'Buildings', 'Monuments', 'Heritage Sites'].map((categoryName) => (
+          <FormControlLabel
+            key={categoryName}
+            control={<Checkbox checked={selectedCategories.includes(categoryName)} onChange={handleFilterChange} name={categoryName} />}
+            label={categoryName}
+            style={{ color: customIcon[categoryName] }}
+          />
+        ))}
+      </div>
+    ) : (<div></div>);
+  };
+
+  // Step 4: Create a function to render the checkboxes for Intangible category
+  const renderIntangibleCheckboxes = () => {
+    return intangibleDropdownOpen ? (
+      <div>
+        {['Traditional Knowledge', 'Cultural Festivals/Events', 'Oral Traditions/Stories', 'Rituals', 'Dance', 'Music', 'Food/Gastronomy'].map((categoryName) => (
+          <FormControlLabel
+            key={categoryName}
+            control={<Checkbox checked={selectedCategories.includes(categoryName)} onChange={handleFilterChange} name={categoryName} />}
+            label={categoryName}
+            style={{ color: customIcon[categoryName] }}
+          />
+        ))}
+      </div>
+    ) : (<div></div>)
+  };
+
+  const renderCheckboxesBasedOnDropdown = () => {
+    if (culturalHeritageType === 'tangible') {
+      return renderTangibleCheckboxes();
+    } else if (culturalHeritageType === 'intangible') {
+      return renderIntangibleCheckboxes();
+    }
+    return null;
+  };
+
+
+
   const minZoomLevel = 9.3; // Adjust this value as needed
   const maxZoomLevel = 15; // Adjust this value as needed
 
 
   return (
-    <div style={{ position: 'relative', marginTop: '30px', height: '100vh' }}>
+    <div style={{ position: 'relative', marginTop: '85px', height: '100vh' }}>
       <MapContainer
         center={initialMapCenter()}
         zoom={initialMapZoom()}
@@ -331,71 +426,110 @@ const MapPage = () => {
         })}
       </MapContainer>
 
-      <div
-        className="filter-panel"
-        style={{
-          position: 'absolute',
-          bottom: 20,
-          margin: '10px !important',
-          marginBottom: '10px !important',
-          backgroundColor: 'white',
-          padding: '10px',
-          borderRadius: '5px',
-          boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
-          zIndex: 1000,
-          width: '100%',
-          maxHeight: '33%',
-          // Add the following styles to make the content scrollable within the div
-          overflow: 'auto',
-        }}
-      >
-        {/* Typography Headings (Filter and Data Point) */}
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ flexGrow: 0.01 }}>
-            <Typography variant="h6" style={{ cursor: 'pointer', color: selectedTab === 'Filter' ? 'black' : 'gray' }} onClick={() => setSelectedTab('Filter')}>Filter</Typography>
-          </div>
-          <div style={{ flexGrow: 0.01 }}>
-            <Typography variant="h6" style={{ cursor: 'pointer', color: selectedTab === 'Data Point' ? 'black' : 'gray' }} onClick={() => setSelectedTab('Data Point')}>Data Point</Typography>
+      <div className={`filter-panel ${isMobile ? 'filter-panel-bottom' : 'filter-panel-left'} ${isFilterPanelMinimized ? 'minimized' : ''}`}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ cursor: 'pointer' }} onClick={handleFilterPanelToggle}>
+            {isFilterPanelExpanded ? (!isMobile && isMobile ? (
+              <CloseFullscreen style={{ color: 'black' }} />
+            ) : (<div></div>)) : (
+              <OpenInFull style={{ color: 'black' }} />
+            )}
           </div>
         </div>
 
+        {isFilterPanelExpanded && !isFilterPanelMinimized && (
+          <>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ flexGrow: 0.1 }}>
+                <Typography
+                  variant="h6"
+                  style={{
+                    cursor: 'pointer',
+                    color: selectedTab === 'Filter' ? 'black' : 'gray',
+                    textDecoration: selectedTab === 'Filter' ? 'underline' : 'none', // Apply underline style if selectedTab is "Filter"
+                  }}
+                  onClick={() => setSelectedTab('Filter')}
+                >
+                  Filter
+                </Typography>
+              </div>
+              <div style={{ flexGrow: 0.1 }}>
+                <Typography
+                  variant="h6"
+                  style={{
+                    cursor: 'pointer',
+                    color: selectedTab === 'Data Point' ? 'black' : 'gray',
+                    textDecoration: selectedTab === 'Data Point' ? 'underline' : 'none', // Apply underline style if selectedTab is "Data Point"
+                  }}
+                  onClick={() => setSelectedTab('Data Point')}
+                >
+                  Data Point
+                </Typography>
+              </div>
+              <Divider style={{ marginTop: '10px', marginBottom: '10px', height: '20px', backgroundColor: 'black', zIndex: '3000 !important' }} />
+            </div>
 
-        {selectedTab === 'Filter' && (
-          <div>
-            {Object.keys(culturalHeritageCategoryIdMapping).map((categoryName) => (
-              <FormControlLabel
-                key={categoryName}
-                control={<Checkbox checked={selectedCategories.includes(categoryName)} onChange={handleFilterChange} name={categoryName} />}
-                label={categoryName}
-                style={{ color: customIcon[categoryName] }}
-              />
-            ))}
-          </div>
+            {selectedTab === 'Filter' && (
+              <div>
+                <div>
+                  <Typography
+                    variant="h6"
+                    style={{
+                      cursor: 'pointer',
+                    }}
+                    onClick={handleTangibleDropdownToggle}
+                  >
+                    Tangible {tangibleDropdownOpen ? <ArrowDropUp /> : <ArrowDropDown />}
+                  </Typography>
+                  <Divider orientation="vertical" flexItem style={{ marginLeft: '10px', marginRight: '10px' }} />
+                  {renderTangibleCheckboxes()}
+                </div>
+                <br />
+                <div>
+                  <Typography
+                    variant="h6"
+                    style={{
+                      cursor: 'pointer',
+                    }}
+                    onClick={handleIntangibleDropdownToggle}
+                  >
+                    Intangible {intangibleDropdownOpen ? <ArrowDropUp /> : <ArrowDropDown />}
+                  </Typography>
+                  {renderIntangibleCheckboxes()}
+                </div>
+              </div>
+            )}
+
+
+            {selectedTab === 'Data Point' && (
+              <div>
+                {selectedMarkerLocation ? (
+                  <CreateDataPoint location={selectedMarkerLocation} onReadMoreClick={handleReadMoreClick} />
+                ) : (<div style={{ color: 'black' }}>Please select a datapoint from the map!</div>)}
+              </div>
+            )}
+          </>
         )}
 
-        {selectedTab === 'Data Point' && (
-          <div>
-            {selectedMarkerLocation ? (
-              <CreateDataPoint location={selectedMarkerLocation} onReadMoreClick={handleReadMoreClick} />
-            ) : (<div style={{ color: 'black' }}>Please select a datapoint from the map!</div>)}
+
+
+        {isDataCardOpen && selectedLocation && (
+          <div
+            className="popup-overlay"
+            style={{ backgroundColor: '#ededed', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}
+          >
+            <div className="popup-card">
+              <button className="data-close-button" onClick={handleDataCardClose}>
+                X
+              </button>
+              <DataCard location={selectedLocation} />
+            </div>
           </div>
         )}
       </div>
 
-      {isDataCardOpen && selectedLocation && (
-        <div
-          className="popup-overlay"
-          style={{ backgroundColor: '#ededed', position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}
-        >
-          <div className="popup-card">
-            <button className="data-close-button" onClick={handleDataCardClose}>
-              X
-            </button>
-            <DataCard location={selectedLocation} />
-          </div>
-        </div>
-      )}
-    </div>
+
+    </div >
 
 
   );
@@ -403,3 +537,6 @@ const MapPage = () => {
 };
 
 export default MapPage;
+
+
+
