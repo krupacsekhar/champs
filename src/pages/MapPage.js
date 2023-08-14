@@ -348,7 +348,7 @@ const MapPage = () => {
             key={categoryName}
             control={<Checkbox checked={selectedCategories.includes(categoryName)} onChange={handleFilterChange} name={categoryName} />}
             label={categoryName}
-            style={{ color: customIcon[categoryName] }}
+            style={{ color: 'black' }}
           />
         ))}
       </div>
@@ -364,7 +364,7 @@ const MapPage = () => {
             key={categoryName}
             control={<Checkbox checked={selectedCategories.includes(categoryName)} onChange={handleFilterChange} name={categoryName} />}
             label={categoryName}
-            style={{ color: customIcon[categoryName] }}
+            style={{ color: 'black' }}
           />
         ))}
       </div>
